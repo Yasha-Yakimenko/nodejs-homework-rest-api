@@ -2,7 +2,12 @@ const {Contact} = require('../../models/contacts');
 
 const getAll = async (req, res, next) => {
     try {
-        const result = await Contact.find({}, "-createdAt -updatedAt");
+        const { id: owner } = req.user;
+        const { page = 1, limit = 20 } = req.query;
+        const skip = (page - 1) * limit;
+        const result = await Contact
+            .find({ owner }, "-createdAt -updatedAt", {skip, limit: Number(limit)})
+            .populate("owner", "email");
         res.json(result);
     }
     catch (error) {

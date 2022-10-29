@@ -9,8 +9,9 @@ const {
       if (error) {
         throw createError(400, error.message);
       };
-      const result = await Contact.create(req.body);
-      res.status(201).json(result);
+      const { id: owner } = req.user;
+    const result = await Contact.create({...req.body, owner});
+    res.status(201).json(result);
     }
     catch (error) {
       next(error);
