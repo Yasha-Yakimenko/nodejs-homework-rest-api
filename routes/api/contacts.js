@@ -1,8 +1,6 @@
 const express = require('express');
 const { login } = require('../../middlewares');
 const ctrl = require('../../controllers/contacts')
-
-
 const router = express.Router();
 
 router.get('/', login, ctrl.getAll);
