@@ -8,9 +8,14 @@ const signupSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
+
 const schemas = {
   signup: signupSchema,
   login: signupSchema,
+  email: emailSchema,
 };
 
 const userSchema = new Schema(
@@ -34,6 +39,14 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
       required: true,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
     },
     token: {
       type: String,

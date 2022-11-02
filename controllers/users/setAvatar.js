@@ -4,7 +4,6 @@ const Jimp = require("jimp");
 const { User } = require("../../models/user");
 
 const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
-console.log(avatarsDir);
 
 const setAvatar = async (req, res, next) => {
   const { _id } = req.user;
